@@ -14,6 +14,7 @@ string restaurantName = "Nandos";
 string username = "";
 string password = "";
 
+
 //Users are now stored in the User object
 User users = new User();
 
@@ -33,6 +34,7 @@ do
     Console.Write("Password: ");
     password = Console.ReadLine();
     // Is the user registered?
+
     if (users.checkCredentials(username, password))
         loggedIn = true;
     else
