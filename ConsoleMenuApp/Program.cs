@@ -7,13 +7,15 @@
 */
 
 //App level variables
+
+using ConsoleMenuApp;
+
 string restaurantName = "Nandos";
 string username = "";
 string password = "";
 
-// Users are currently stored in the dictionary
-Dictionary<string, string> knownUsers = new Dictionary<string, string>();
-knownUsers.Add("elliot@example.org", "password123");
+//Users are now stored in the User object
+User users = new User();
 
 //While loop to ask for correct login details
 bool loggedIn = false;
@@ -31,7 +33,7 @@ do
     Console.Write("Password: ");
     password = Console.ReadLine();
     // Is the user registered?
-    if (knownUsers.ContainsKey(username) && knownUsers[username] == password)
+    if (users.checkCredentials(username, password))
         loggedIn = true;
     else
     {
