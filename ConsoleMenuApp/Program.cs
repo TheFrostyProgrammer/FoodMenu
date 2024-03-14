@@ -29,7 +29,7 @@ do
                   What is your username?
                   Username: 
                   """);
-    username = Console.ReadLine().ToLower();
+    username = Console.ReadLine();
 
     Console.Write("Password: ");
     password = Console.ReadLine();
@@ -60,21 +60,16 @@ do
 //While loop to repeat menu
 sbyte menuItemChosen = -1;
 string menuItemInput = "";
-sbyte[] menuListItems = {1,2,3,4,5 };
+sbyte[] menuListItems = { 1,2,3,4,5 };
 
-// TODO: add StringBuilder with dictionary to hold menu items and loop through "menu" to Console.Write Once
+Menu menu = new Menu();
 do
 {
     //handle menu display
 
     Console.Write($"""
                    Great to see you back {username}!
-                   Please select a menu item from today's specials.
-                   1. Four Flame-grilled Boneless Chicken Thighs
-                   2. One Chicken Butterfly
-                   3. Grilled Chicken Wrap
-                   4. 1/2 Peri Peri Chicken
-                   5. Vegan Salad
+                   {menu.getMenu()}
                    Please select by entering a number for the menu item you would like to order.
                    Menu item desired:
                    """);

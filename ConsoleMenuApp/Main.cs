@@ -11,6 +11,12 @@ internal class Main : Food
         this._Drink = drink;
     }
 
+    public Main(string name, string side = "Spicy Rice", string drink = "Coke Zero") : base(name, 9.99m)
+    {
+        this._Side = side;
+        this._Drink = drink;
+    }
+
     public string? Side
     {
         get { return _Side; }
