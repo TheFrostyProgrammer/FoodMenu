@@ -9,6 +9,7 @@
 //App level variables
 
 using ConsoleMenuApp;
+using ConsoleMenuApp.Enumerations;
 
 string restaurantName = "Nandos";
 string username = "";
@@ -63,16 +64,44 @@ string menuItemInput = "";
 sbyte[] menuListItems = { 1,2,3,4,5 };
 
 Menu menu = new Menu();
+
+/*
+ * TODO: change do while to a class which has a method to handle input e.g. .showMenu("Mains") or .showMenuMains();
+ * 
+    */
+
+Console.WriteLine(menu.MenuLevel);
+// sbyte called orderStage?
+// do OrderBuilder.displayStage(orderStage); returns the next stage?
+// if orderStage is -1 exit menu
+// else OrderBuilder.DisplayStage(orderStage);
 do
 {
     //handle menu display
 
-    Console.Write($"""
-                   Great to see you back {username}!
-                   {menu.getMenu()}
-                   Please select by entering a number for the menu item you would like to order.
-                   Menu item desired:
-                   """);
+    switch (menu.MenuLevel)
+    {
+        case MenuLevelType.Mains:
+            Console.Write($"""
+                           Great to see you back {username}!
+                           {menu.GetMainsMenu()}
+                           Please select by entering a number for the menu item you would like to order.
+                           Menu item desired:
+                           """);
+            break;
+        case MenuLevelType.Sides:
+            Console.Write($"""
+                           What side would you like with that {username}?
+                           {menu.GetSidesMenu()}
+                           Please select by entering a number for the menu item you would like to order.
+                           Menu item desired:
+                           """);
+            break;
+        default:
+            Console.WriteLine("Default");
+            break;
+        
+    }
     menuItemInput = Console.ReadLine();
 
     //Convert input to a number 
@@ -99,6 +128,24 @@ do
         menuItemChosen = -1;
     }
     else
-        Console.WriteLine($"That's a great choice {username}. We'll serve a number {menuItemChosen} right up to you.");
-} while (menuItemChosen == -1);
+    {
+        switch (menu.MenuLevel)
+        {
+            case MenuLevelType.Mains:
+                Console.WriteLine($"That's a great choice {username}. We'll serve a {menu.MainItemNameByIndex(menuItemChosen)} right up to you.");
+                menu.MenuLevel = MenuLevelType.Sides;
+                break;
+            case MenuLevelType.Sides:
+                Console.WriteLine($"That's a great choice {username}. We'll serve a number {menu.SideItemNameByIndex(menuItemChosen)} right up to you.");
+                menu.MenuLevel = MenuLevelType.Exit;
+                break;
+            default:
+                Console.WriteLine("Default");
+                break;  
+        }
+
+        menuItemChosen = -1;
+    }
+        
+} while (menu.MenuLevel != MenuLevelType.Exit);
 // end of program
